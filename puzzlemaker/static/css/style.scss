@@ -1,0 +1,146 @@
+@import "./mixin.scss";
+
+body{
+    //text-align: center;
+    
+    header{
+        a{
+            color:black;
+            text-decoration: none;
+        }
+        li{
+            display: inline;
+            list-style: none;
+            font-size:1.2em;
+            margin-right: 10px;
+            &:hover{
+                color:orange;
+            }
+        }
+
+    }
+
+    .container{
+        @include flexBox(wrap,left);
+        min-height:600px;
+        .title{
+            @include title(left,black,1.4em);
+        }
+
+        .mainFrame{
+            @include Frame(auto,auto,10px,10px);
+            min-height: 800px;
+            background-color: aquamarine;
+        }
+
+        .indexFrame{
+            @include Frame(600px,auto,0 auto,0);
+            text-align: center;
+
+            img{
+                width:100%;
+            }
+        }
+
+        .formFrame{
+            @include Frame(500px,300px,0 auto,10px);
+            border:1px dotted black;
+            text-align: center;
+            
+            .form-item{
+                @include Frame(100%,auto,30px auto,0);
+            }
+
+            .name{
+                @include Frame(40%,auto,0px,8px);
+                font-size:1.2em;
+
+                border:none;
+                border-bottom: 1px solid #797676da;
+            }
+            .submit{
+                @include button(aqua);
+                width: 50%;
+                margin:0;
+            }
+        }
+
+        .selectFrame{
+            @include Frame(1500px,auto,0 10px,10px);
+            @include flexBox(wrap,left);
+        }
+
+        .pannelFrame{
+            @include flexBox(wrap,flex-start);
+            @include Frame(auto,auto,0 30px,0px);
+            .pannel{
+                @include pannel(0px,0px);
+                border:1px solid white;
+
+            }
+
+        }
+
+        .sideFrame{
+            @include Frame(700px,auto,0 0px,20px);
+            border:3px solid white; 
+            min-height: 500px;
+            background-color: bisque;
+
+            .title{
+                text-align: center;
+            }
+        }
+
+        .workFrame{
+            @include Frame(80%,auto,10px,10px);
+            @include flexBox(wrap,left);
+            background-color: aqua;
+        }
+
+        .info{
+            @include Frame(15%,auto,10px 0 ,0px 10px);
+            border:2px solid rgba(59, 56, 56, 0.815);
+        }
+
+
+        .space{
+            @include Frame(auto,auto,0 auto,0);
+            //background-color: bisque;
+            border-radius: 3px;
+        }
+
+        .card{
+            @include Frame(300px,300px,10px,0);
+            background-color: bisque;
+            border:2px solid white;
+            text-align: center;
+            img{
+                width:80%;
+                height: 50%;
+                border-radius: 3px;
+            }
+            
+            .submit{
+                @include button(red);
+                padding:15px 20px;
+            }
+
+        }
+
+
+        .button1{
+            @include button(red);
+        }
+        .button2{
+            @include button(blue);
+        }
+    }
+
+    footer{
+        background-color: black;
+        color:white;
+        padding-bottom:5px;
+        text-align: center;
+    }
+}

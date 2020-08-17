@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width">
+        <title>ゲーム</title>
+        <link rel = "stylesheet" href="./static/css/style.css">
+        <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    </head>
+    <body>
+        <header>
+            <a href = "./"><h1>Puzzle Maker</h1></a>
+            <nav>
+                <ol>
+                    <a href="./mypage"><li>マイページ</li></a>
+                    <!--a href="./logout"><li>ログアウト</li></a>
+                    <a href="./login"><li>ログイン</li></a-->                    
+                </ol>
+            </nav>
+            <hr>
+        </header>
+        <main>
+            <div class="container">
+                <div class = "mainFrame">
+                    <h2 class="title">{{data.name}}</h2>
+                    <div class = "pannelFrame">
+                        {% for i in range(data.size * data.size) %}
+                            <div class="pannel" id = {{i}}></div>
+                        {% endfor %}
+                    </div>
+                </div>
+
+                <div class="sideFrame">
+                    <h2 class="title">ピース</h2>
+                    <h3>全ピース数</h3>
+                    <p>{{data.size * data.size}}</p>
+                    <h3>残りピース数</h3>
+                    <p class = "remainder">{{data.size * data.size}}</p>
+                    <div class= "space">
+                        {%for puzzle in puzzles %}
+                            <img src = "data:image/jpg;base64,{{puzzle.url}}" id = {{puzzle.id}} class = "puzzle">
+                        {% endfor %}
+                    </div>
+                </div>
+
+            </div>
+        <footer>
+            <hr>
+            <p>&copy;saki</p>
+        </footer>
+    
+        <script src = "./static/js/script.js"></script>
+        <script>
+            var data = {{data|tojson }};
+            var Frame = $(".pannelFrame");
+            Frame.css("width",500 + data.size * 2  + "px").css("height",500 + data.size * 2 + "px");;
+            
+            $(".pannel").css("width",500 / data.size + "px").css("height",500/ data.size + "px");
+
+
+
+        </script>
+    </body>
+</html>

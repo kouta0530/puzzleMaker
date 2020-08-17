@@ -1,0 +1,35 @@
+@mixin Frame($width,$height,$margin,$padding){
+    width:$width;
+    height:$height;
+    margin:$margin;
+    padding:$padding;
+}
+
+
+@mixin title($text-align,$color,$size){
+    text-align: $text-align;
+    color:$color;
+    font-size:$size;
+    width:100%;
+}
+
+@mixin button($color) {
+    border-radius: 10px;
+    background-color: $color;
+    color:white;
+    padding: 10px;
+    margin:10px;
+}
+
+@mixin  flexBox($wrap,$justify){
+    display:flex;
+    flex-wrap: $wrap;
+    justify-content:$justify;
+}
+
+@mixin pannel($width,$height){
+    width:$width;
+    height:$height;
+    background-color: silver;
+    /*border:1px solid black;*/
+}

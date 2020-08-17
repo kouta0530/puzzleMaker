@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width">
+        <title>ログイン</title>
+        <link rel = "stylesheet" href="./static/css/style.css">
+    </head>
+    <body>
+        <header>
+            <a href = "./"><h1>Puzzle Maker</h1></a>
+            <nav>
+                <ol>
+                    <a href="./mypage"><li>マイページ</li></a>
+                    <!--a href="./logout"><li>ログアウト</li></a>
+                    <a href="./login"><li>ログイン</li></a-->                    
+                </ol>
+            </nav>
+            <hr>
+        </header>
+        <main>
+            <div class = "container">
+                <form action = "./login" method="POST" enctype = "multipart/form-data" class = "formFrame">
+                    <div class="form-item">
+                        <label>ユーザー名</label>
+                        <input type = "name" name = "name" class="name">
+                    </div>
+                    <div class="form-item">
+                        <label>パスワード</label>
+                        <input type = "password" name = "password" class="name">
+                    </div>
+                    <div class= "form-item">
+                        <input type = "submit" value = "ログイン" class="submit">
+                    </div>
+
+                </form>
+            </div>
+        </main>
+        <footer>
+            <hr>
+            <p>&copy;saki</p>
+        </footer>
+    </body>
+</html>

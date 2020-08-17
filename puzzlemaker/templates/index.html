@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width">
+        <title>puzzle Maker</title>
+        <link rel = "stylesheet" href="./static/css/style.css">
+    </head>
+    <body>
+        <header>
+            <a href = "./"><h1>Puzzle Maker</h1></a>
+            <nav>
+                <ol>
+                    <a href="./mypage"><li>マイページ</li></a>
+                    <!--a href="./logout"><li>ログアウト</li></a>
+                    <a href="./login"><li>ログイン</li></a-->                    
+                </ol>
+            </nav>
+            <hr>
+        </header>
+        <main class="container">
+            <div class="indexFrame">
+                <img src = "./static/img/indexImage.jpg" alt = "タイトルイメージ画像">
+
+                <p>
+                    自分の好きな画像でパズルができるアプリです。
+                </p>
+
+                <a href="./upload"><button class="button1">パズルを作る</button></a>
+                <a href="./select"><button  class ="button1">投稿されたパズルで遊ぶ</button></a>
+            </div>
+        </main>
+        <footer>
+            <hr>
+            <p>&copy;saki</p>
+        </footer>
+        <script>
+            var msg = {{msg}};
+            if(msg == true){
+                alert("アップロードに成功しました");
+            }
+
+        </script>
+    </body>
+</html>

@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width">
+        <title>セレクト</title>
+        <link rel = "stylesheet" href="./static/css/style.css">
+    </head>
+    <body>
+        <header>
+            <a href = "./"><h1>Puzzle Maker</h1></a>
+            <nav>
+                <ol>
+                    <a href="./mypage"><li>マイページ</li></a>
+
+                    <!--a href="./logout"><li>ログアウト</li></a>
+                    <a href="./login"><li>ログイン</li></a-->                    
+                </ol>
+            </nav>
+            <hr>
+        </header>
+        <main>
+            <div class="container">
+                <div class="selectFrame">
+                    <h2 class="title">検索結果</h2>
+                    {% for data in datas %}
+                    <div class = "card" id = {{data.id}}>
+                        <h3>{{data.name}}</h3>
+                        <img src = {{data.url}} alt = {{data.name}}>
+                        <form action ="./play" method="POST">
+                            <input type = "hidden" name = "id" value = {{data.name}}>
+                            <input type ="submit" class="submit" value = "遊ぶ">
+                        </form>
+                    </div>
+                    {% endfor %}
+                </div>
+
+            </div>
+        </main>
+        <footer>
+            <hr>
+            <p>&copy;saki</p>
+        </footer>
+    </body>
+</html>
