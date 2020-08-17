@@ -6,7 +6,7 @@
 ## どんなアプリ？
 ### 好きな画像をアップロードするとその画像のパズルゲームを作成するアプリです　　
   
-<img src = "./materialspuzzlemaker.png" alt = "パズルメーカー">
+<img src = "./materials/puzzlemaker.png" alt = "パズルメーカー">
 
 ##  使い方
 ### １．好きな画像を用意します  
