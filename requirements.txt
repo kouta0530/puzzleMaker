@@ -1,5 +1,5 @@
 Flask==1.0.2
 pycryptodome==3.9.8
 Jinja2==2.10
-opencv-python==4.2.0.34
+opencv-python-headless
 firebase-admin==4.3.0
