@@ -27,6 +27,9 @@ class Firebase():
     def update(self,ref,data):
         return ref.update(data)
 
+    def delete(self,ref):
+        return ref.delete()
+
     def close(self):
         return firebase_admin.delete_app(self.app) 
 
@@ -41,4 +44,7 @@ class Firebase():
 
     def getImgSrc(self,exp):
         return self.blob.generate_signed_url(exp)
+
+    def deleteImg(self):
+        return self.blob.delete()
 

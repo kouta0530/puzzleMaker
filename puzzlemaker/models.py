@@ -2,6 +2,7 @@
 import os
 import random
 import datetime
+import uuid
 
 from puzzlemaker import imageToPeace as itp
 from puzzlemaker import fireDB
@@ -33,13 +34,14 @@ def create_puzzleData(file,name,size,user_id):
     db.session.commit()
     """
     fdb = fireDB.Firebase(setting.cred,setting.option)
-    fdb.setblob(name + ".jpg")
+    id = str(uuid.uuid4())
+    fdb.setblob(id + ".jpg")
     fdb.uploadImageToStorage(file)
     
-    ref = fdb.getRef("puzzle/" + name)
+    ref = fdb.getRef("puzzle/" + id)
     exp = datetime.datetime.now()
     data = {
-        "id":user_id,
+        "user_id":user_id,
         "name":name,
         "ref":name + ".jpg",
         "size":size,
@@ -55,7 +57,7 @@ def create_puzzleData(file,name,size,user_id):
 def getYourPuzzle(user_id):
     fdb = fireDB.Firebase(setting.cred,setting.option)
     ref = fdb.getRef("puzzle")
-    query = ref.order_by_child("id").equal_to(user_id)
+    query = ref.order_by_child("user_id").equal_to(user_id)
 
     data = fdb.getQuearyData(query)
 
@@ -70,9 +72,8 @@ def getYourPuzzle(user_id):
 def get_puzzleList():
     fdb = fireDB.Firebase(setting.cred,setting.option)
     ref = fdb.getRef("puzzle")
-    data = fdb.getData(ref)
+    puzzleList = fdb.getData(ref)
     
-    puzzleList = [data[key] for key in data]
     
     fdb.close()
     del fdb
@@ -95,11 +96,12 @@ def get_pannel(query_id):
     }
     """
     fdb = fireDB.Firebase(setting.cred,setting.option)
-    fdb.setblob(query_id + ".jpg")
-    image = fdb.getImageDataromStorage()
 
     ref = fdb.getRef("puzzle").child(query_id)
-    data = fdb.getData(ref)
+    data = fdb.getQuearyData(ref)
+
+    fdb.setblob(query_id + ".jpg")
+    image = fdb.getImageDataromStorage()
 
     fdb.close()
     del fdb
@@ -129,3 +131,26 @@ def make_puzzle_gameset(data,image):
 
 
     return Puzzles#puzzles
+
+def update(id,name,size):
+    fdb = fireDB.Firebase(setting.cred,setting.option)
+    ref = fdb.getRef("puzzle").child(id)
+
+    renew_data= {"name":name,"size":size}
+    fdb.update(ref,renew_data)
+
+    fdb.close()
+    del fdb
+
+def delete(id):
+    fdb = fireDB.Firebase(setting.cred,setting.option)
+    ref = fdb.getRef("puzzle").child(id)
+
+    fdb.delete(ref)
+    fdb.setblob(id + ".jpg")
+    fdb.deleteImg()
+
+    fdb.close()
+    del fdb
+
+    return 0
