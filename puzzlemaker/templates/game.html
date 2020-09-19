@@ -4,12 +4,12 @@
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width">
         <title>ゲーム</title>
-        <link rel = "stylesheet" href="./static/css/style.css">
+        <link rel = "stylesheet" href="/static/css/style.css">
         <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
     </head>
     <body>
         <header>
-            <a href = "./"><h1>Puzzle Maker</h1></a>
+            <a href = "/"><h1>Puzzle Maker</h1></a>
             <nav>
                 <ol>
                     <a href="./mypage"><li>マイページ</li></a>
@@ -52,16 +52,13 @@
             <p>&copy;saki</p>
         </footer>
     
-        <script src = "./static/js/script.js"></script>
+        <script src = "/static/js/script.js"></script>
         <script>
             var data = {{data|tojson }};
             var Frame = $(".pannelFrame");
             Frame.css("width",500 + data.size * 2  + "px").css("height",500 + data.size * 2 + "px");;
             
             $(".pannel").css("width",500 / data.size + "px").css("height",500/ data.size + "px");
-
-
-
         </script>
     </body>
 </html>

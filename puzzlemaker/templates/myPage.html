@@ -5,6 +5,7 @@
         <meta name="viewport" content="width=device-width">
         <title>puzzle Maker</title>
         <link rel = "stylesheet" href="./static/css/style.css">
+        <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
     </head>
     <body>
         <header>
@@ -29,9 +30,12 @@
                         <div class="card">
                             <p>{{data[v].name}}</p>
                             <img src = {{data[v].url}} alt = {{data[v].name}}>
-                            <form acrion = "" method = "POST">
-                                <input type = "submit" value = "修正" class="button1">
-                                <input type = "submit" value = "削除" class = "button1">
+                            <br>
+                            <button><a href= "work/{{v}}">修正</a></button>
+                            <br>
+                            <form action = "delete/{{v}}" method="POST">
+                                <input type= "hidden" name = "delete" value="DELETE">
+                                <input type= "submit" class="delete" value = "削除">
                             </form>
                         </div>
                     {% endfor %}
@@ -48,5 +52,16 @@
             <hr>
             <p>&copy;saki</p>
         </footer>
+        <script>
+            $(".delete").on("click",function(e){
+                const result = confirm("本当に削除しますか？")
+                if(result){
+                    event.removeEventList
+                }
+                else{
+                    e.preventDefault()
+                }
+            });
+        </script>
     </body>
 </html>

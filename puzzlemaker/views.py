@@ -134,12 +134,39 @@ def show_list():
     datas = models.get_puzzleList()
     return render_template("select.html",datas = datas,auth=user_is_authenticated)
 
-@app.route("/play",methods = ["POST"])
+@app.route("/play/<string:id>")
 
-def play_game():
-    id = request.form["id"]
-
+def play_game(id):
+    print(id)
     image,data = models.get_pannel(id)
     puzzles = models.make_puzzle_gameset(data,image)
 
     return render_template("game.html",data = data,puzzles = puzzles,auth=user_is_authenticated)
+
+@app.route("/work/<string:id>")
+
+def work(id):
+
+    return render_template("updateForm.html",id=id)
+
+@app.route("/update/<string:id>",methods = ["POST"])
+
+def update(id):
+    name = request.form.get("name")
+    size = request.form.get("size")
+    if(name == ""):
+        return redirect(url_for("myPage"))
+
+    models.update(id,name,int(size))
+
+    return redirect(url_for("myPage"))
+
+@app.route("/delete/<string:id>",methods = ["POST"])
+
+def delete(id):
+    if(request.form.get("delete") != "DELETE"):
+        return redirect(url_for("myPage"))
+
+    models.delete(id)
+
+    return redirect(url_for("myPage"))

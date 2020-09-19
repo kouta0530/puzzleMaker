@@ -25,14 +25,12 @@
             <div class="container">
                 <div class="selectFrame">
                     <h2 class="title">検索結果</h2>
-                    {% for data in datas %}
-                    <div class = "card" id = {{data.id}}>
-                        <h3>{{data.name}}</h3>
-                        <img src = {{data.url}} alt = {{data.name}}>
-                        <form action ="./play" method="POST">
-                            <input type = "hidden" name = "id" value = {{data.name}}>
-                            <input type ="submit" class="submit" value = "遊ぶ">
-                        </form>
+                    {% for key in datas %}
+                    <div class = "card" id = {{datas[key].id}}>
+                        <h3>{{datas[key].name}}</h3>
+                        <img src = {{datas[key].url}} alt = {{datas[key].name}}>
+                        <br>
+                        <button><a href= "/play/{{key}}">遊ぶ</a></button>
                     </div>
                     {% endfor %}
                 </div>
