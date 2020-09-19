@@ -6,20 +6,29 @@ from firebase_admin import db
 class Firebase():
     def __init__(self,cred,option):
         self.cred = credentials.Certificate(cred)
-        firebase_admin.initialize_app(self.cred,options = option)
+        self.app = firebase_admin.initialize_app(self.cred,options = option)
         self.bucket = storage.bucket()
 
-    def getRef(self,ref):
-        return db.reference(ref)
+    def getRef(self,path):
+        return db.reference(path)
 
-    def getData(self,query):
+    def getData(self,ref):
+        return ref.get()
+
+    def equal(self,query,param):
+        return query.equal_to(param)
+
+    def getQuearyData(self,query):
         return query.get()
 
-    def insert(self,query,data):
-        return query.set(data)
+    def insert(self,ref,data):
+        return ref.set(data)
 
-    def update(self,query,data):
-        return query.update(data)
+    def update(self,ref,data):
+        return ref.update(data)
+
+    def close(self):
+        return firebase_admin.delete_app(self.app) 
 
     def setblob(self,ref):
         self.blob = self.bucket.blob(ref)

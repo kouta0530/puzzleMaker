@@ -1,5 +1,5 @@
 from flask_login import UserMixin
-from test import db
+from puzzlemaker import db
 
 class User(UserMixin):
     def __init__(self,id):

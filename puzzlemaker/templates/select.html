@@ -12,9 +12,11 @@
             <nav>
                 <ol>
                     <a href="./mypage"><li>マイページ</li></a>
-
-                    <!--a href="./logout"><li>ログアウト</li></a>
-                    <a href="./login"><li>ログイン</li></a-->                    
+                    {% if auth %}
+                    <a href="./logout"><li>ログアウト</li></a>
+                    {% else %}
+                    <a href="./login"><li>ログイン</li></a>
+                    {% endif %}                        
                 </ol>
             </nav>
             <hr>

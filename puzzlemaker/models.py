@@ -1,22 +1,11 @@
 #from test import db
-from puzzlemaker import imageToPeace as itp
 import os
 import random
-from puzzlemaker import fireDB
 import datetime
-from dotenv import load_dotenv
-from os.path import join, dirname
 
-dotenv_path = join(dirname(__file__), '.env')
-load_dotenv(dotenv_path,encoding="utf-8_sig")
-
-cred = os.environ["FIREBASE_JSON"]
-
-option = {
-    'databaseURL':os.environ["FIREBASE_DATABASE"],
-    'storageBucket':os.environ["FIREBASE_STORAGE"]
-}
-fireBase = fireDB.Firebase(cred,option)
+from puzzlemaker import imageToPeace as itp
+from puzzlemaker import fireDB
+from puzzlemaker import setting
 
 def init():
     return 0
@@ -43,31 +32,51 @@ def create_puzzleData(file,name,size,user_id):
     db.session.add(puzzle)
     db.session.commit()
     """
-
-    fireBase.setblob(name + ".jpg")
-    fireBase.uploadImageToStorage(file)
+    fdb = fireDB.Firebase(setting.cred,setting.option)
+    fdb.setblob(name + ".jpg")
+    fdb.uploadImageToStorage(file)
     
-    ref = fireBase.getRef("puzzle/" + name)
-    exp = datetime.datetime(3000,7,30)
+    ref = fdb.getRef("puzzle/" + name)
+    exp = datetime.datetime.now()
     data = {
         "id":user_id,
         "name":name,
         "ref":name + ".jpg",
         "size":size,
-        "url":fireBase.getImgSrc(exp)
+        "url":fdb.getImgSrc(exp)
     }
-    fireBase.insert(ref,data)
+    fdb.insert(ref,data)
 
+    fdb.close()
+    del fdb
 
     return 1
 
+def getYourPuzzle(user_id):
+    fdb = fireDB.Firebase(setting.cred,setting.option)
+    ref = fdb.getRef("puzzle")
+    query = ref.order_by_child("id").equal_to(user_id)
+
+    data = fdb.getQuearyData(query)
+
+    fdb.close()
+    del fdb
+
+    return data
+
+
+
 """クライアントに渡す情報をまとめる """
 def get_puzzleList():
-    ref = fireBase.getRef("puzzle")
-    data = fireBase.getData(ref)
+    fdb = fireDB.Firebase(setting.cred,setting.option)
+    ref = fdb.getRef("puzzle")
+    data = fdb.getData(ref)
     
     puzzleList = [data[key] for key in data]
     
+    fdb.close()
+    del fdb
+
     return puzzleList
 
 def get_pannel(query_id):
@@ -85,11 +94,15 @@ def get_pannel(query_id):
         "height":height
     }
     """
-    fireBase.setblob(query_id + ".jpg")
-    image = fireBase.getImageDataromStorage()
+    fdb = fireDB.Firebase(setting.cred,setting.option)
+    fdb.setblob(query_id + ".jpg")
+    image = fdb.getImageDataromStorage()
 
-    ref = fireBase.getRef("puzzle").child(query_id)
-    data = fireBase.getData(ref)
+    ref = fdb.getRef("puzzle").child(query_id)
+    data = fdb.getData(ref)
+
+    fdb.close()
+    del fdb
 
     return image,data#puzzles
 

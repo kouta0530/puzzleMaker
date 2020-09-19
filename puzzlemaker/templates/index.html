@@ -12,8 +12,11 @@
             <nav>
                 <ol>
                     <a href="./mypage"><li>マイページ</li></a>
-                    <!--a href="./logout"><li>ログアウト</li></a>
-                    <a href="./login"><li>ログイン</li></a-->                    
+                    {% if auth %}
+                    <a href="./logout"><li>ログアウト</li></a>
+                    {% else %}
+                    <a href="./login"><li>ログイン</li></a>
+                    {% endif %}                    
                 </ol>
             </nav>
             <hr>
@@ -29,17 +32,26 @@
                 <a href="./upload"><button class="button1">パズルを作る</button></a>
                 <a href="./select"><button  class ="button1">投稿されたパズルで遊ぶ</button></a>
             </div>
+            <form action = "./signup" method="POST" enctype = "multipart/form-data" class = "formFrame">
+                <h2>新規登録</h2>
+                {{err}}
+                <div class="form-item">
+                    <label>Email</label>
+                    <input type = "email" name = "email" class="name">
+                </div>
+                <div class="form-item">
+                    <label>パスワード</label>
+                    <input type = "password" name = "password" class="name">
+                </div>
+                <input type = "submit" value = "新規登録" class="submit">
+            </form>
+
         </main>
         <footer>
             <hr>
             <p>&copy;saki</p>
         </footer>
         <script>
-            var msg = {{msg}};
-            if(msg == true){
-                alert("アップロードに成功しました");
-            }
-
         </script>
     </body>
 </html>
