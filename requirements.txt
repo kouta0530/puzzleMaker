@@ -3,3 +3,4 @@ pycryptodome==3.9.8
 Jinja2==2.10
 opencv-python==4.2.0.34
 firebase-admin==4.3.0
+https://github.com/heroku/heroku-buildpack-apt
