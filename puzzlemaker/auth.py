@@ -30,6 +30,7 @@ def decrypto(cipherText):
     return plainText.decode("utf-8")
 
 def makeHash(data,salt):
+    data = data + salt
     result = hashlib.sha256(data.encode()).hexdigest()
     return result
 
