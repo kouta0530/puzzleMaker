@@ -8,18 +8,21 @@ from puzzlemaker import imageToPeace as itp
 from puzzlemaker import fireDB
 from puzzlemaker import setting
 
+
 def init():
     return 0
+
 
 def select_filter(filter):
     return 0
 
+
 def select_all():
     #puzzle_data = Puzzle.query.order_by(Puzzle.id.desc()).all()
-    return 0 #puzzle_data
+    return 0  # puzzle_data
 
-def create_puzzleData(file,name,size,user_id):
 
+def create_puzzleData(file, name, size, user_id):
     """
     img = itp.read_img(file)
     width,height = itp.get_img_WidthandHeight(img)
@@ -33,29 +36,30 @@ def create_puzzleData(file,name,size,user_id):
     db.session.add(puzzle)
     db.session.commit()
     """
-    fdb = fireDB.Firebase(setting.cred,setting.option)
+    fdb = fireDB.Firebase(setting.cred, setting.option)
     id = str(uuid.uuid4())
     fdb.setblob(id + ".jpg")
     fdb.uploadImageToStorage(file)
-    
+
     ref = fdb.getRef("puzzle/" + id)
-    exp = datetime.datetime.now()
+    exp = datetime.datetime.now().replace(year=2030)
     data = {
-        "user_id":user_id,
-        "name":name,
-        "ref":name + ".jpg",
-        "size":size,
-        "url":fdb.getImgSrc(exp)
+        "user_id": user_id,
+        "name": name,
+        "ref": name + ".jpg",
+        "size": size,
+        "url": fdb.getImgSrc(exp)
     }
-    fdb.insert(ref,data)
+    fdb.insert(ref, data)
 
     fdb.close()
     del fdb
 
     return 1
 
+
 def getYourPuzzle(user_id):
-    fdb = fireDB.Firebase(setting.cred,setting.option)
+    fdb = fireDB.Firebase(setting.cred, setting.option)
     ref = fdb.getRef("puzzle")
     query = ref.order_by_child("user_id").equal_to(user_id)
 
@@ -67,18 +71,19 @@ def getYourPuzzle(user_id):
     return data
 
 
-
 """クライアントに渡す情報をまとめる """
+
+
 def get_puzzleList():
-    fdb = fireDB.Firebase(setting.cred,setting.option)
+    fdb = fireDB.Firebase(setting.cred, setting.option)
     ref = fdb.getRef("puzzle")
     puzzleList = fdb.getData(ref)
-    
-    
+
     fdb.close()
     del fdb
 
     return puzzleList
+
 
 def get_pannel(query_id):
     """
@@ -95,7 +100,7 @@ def get_pannel(query_id):
         "height":height
     }
     """
-    fdb = fireDB.Firebase(setting.cred,setting.option)
+    fdb = fireDB.Firebase(setting.cred, setting.option)
 
     ref = fdb.getRef("puzzle").child(query_id)
     data = fdb.getQuearyData(ref)
@@ -106,10 +111,10 @@ def get_pannel(query_id):
     fdb.close()
     del fdb
 
-    return image,data#puzzles
+    return image, data  # puzzles
 
 
-def make_puzzle_gameset(data,image):
+def make_puzzle_gameset(data, image):
     """
     puzzle = select_filter(Puzzle.id == query_id)
     size = puzzle[0].size
@@ -117,33 +122,34 @@ def make_puzzle_gameset(data,image):
 
     puzzles =[]
     for i in range(size * size):
-        
+
         puzzle = {
             "id":i,
             "link":"./static/img/" + name + "/" + str(i) + ".jpg"
         }
         puzzles.append(puzzle)
-    
+
     random.shuffle(puzzles)
     """
     ndarray = itp.read_img(image)
-    Puzzles = itp.create_picies(data,ndarray)
+    Puzzles = itp.create_picies(data, ndarray)
+
+    return Puzzles  # puzzles
 
 
-    return Puzzles#puzzles
-
-def update(id,name,size):
-    fdb = fireDB.Firebase(setting.cred,setting.option)
+def update(id, name, size):
+    fdb = fireDB.Firebase(setting.cred, setting.option)
     ref = fdb.getRef("puzzle").child(id)
 
-    renew_data= {"name":name,"size":size}
-    fdb.update(ref,renew_data)
+    renew_data = {"name": name, "size": size}
+    fdb.update(ref, renew_data)
 
     fdb.close()
     del fdb
 
+
 def delete(id):
-    fdb = fireDB.Firebase(setting.cred,setting.option)
+    fdb = fireDB.Firebase(setting.cred, setting.option)
     ref = fdb.getRef("puzzle").child(id)
 
     fdb.delete(ref)
