@@ -74,7 +74,6 @@ def get_puzzleList():
     ref = fdb.getRef("puzzle")
     puzzleList = fdb.getData(ref)
     
-    
     fdb.close()
     del fdb
 

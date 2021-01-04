@@ -137,7 +137,6 @@ def show_list():
 @app.route("/play/<string:id>")
 
 def play_game(id):
-    print(id)
     image,data = models.get_pannel(id)
     puzzles = models.make_puzzle_gameset(data,image)
 

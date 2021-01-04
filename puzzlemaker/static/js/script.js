@@ -1,4 +1,5 @@
 var puzzle;
+var puzzlePannels = [];
 
 $(".puzzle").on("mousedown",function(){
     
@@ -8,12 +9,15 @@ $(".puzzle").on("mousedown",function(){
     $(document).on("mousemove",onMouseMove);
 });
 
+/*
+window.onbeforeunload = (e)=>{
+    return "パズルを保存しますか？";
+}
+*/
 
 function onMouseMove(event){
-    
     var x = event.pageX;
     var y = event.pageY;
-
     var width = x - (puzzle.outerWidth() /2);
     var height =y - (puzzle.outerHeight() /2);
     
@@ -42,18 +46,22 @@ function pannelTouchpieceJudge(){
     
     var judgeTop = (pnp.top - 10 < pzp.top)  & (pzp.top < pnp.top + 10);
     var judgeLeft = (pnp.left -10  < pzp.left) & (pzp.left < pnp.left + 10); 
-    
 
     if(judgeTop & judgeLeft){
         pannel.css("background-image","url("+ puzzle.attr("src") + ")");
         puzzle.remove();
+        
+        const pId  = Number(puzzle.attr("id")) || 0 ;
+        puzzlePannels[pId] = 1;
+        console.log(puzzlePannels,pId);
         checkRemainder();
+
     }
+
     $(document).off("mouseup",pannelTouchpieceJudge);
 }
 
 function checkRemainder(){
     var remainder = $(".remainder");
-
     remainder.text(remainder.text() - 1);
 }
