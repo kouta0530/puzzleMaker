@@ -39,6 +39,9 @@
                     <p>{{data.size * data.size}}</p>
                     <h3>残りピース数</h3>
                     <p class = "remainder">{{data.size * data.size}}</p>
+                    {% if auth %}
+                        <button class="button1" onclick="">途中保存</button>
+                    {% endif %}
                     <div class= "space">
                         {%for puzzle in puzzles %}
                             <img src = "data:image/jpg;base64,{{puzzle.url}}" id = {{puzzle.id}} class = "puzzle">
@@ -54,11 +57,15 @@
     
         <script src = "/static/js/script.js"></script>
         <script>
-            var data = {{data|tojson }};
+            var data = {{ data| tojson }};
             var Frame = $(".pannelFrame");
             Frame.css("width",500 + data.size * 2  + "px").css("height",500 + data.size * 2 + "px");;
             
             $(".pannel").css("width",500 / data.size + "px").css("height",500/ data.size + "px");
+
+            for(i = 0 ; i < data.size * data.size ; i++){
+                puzzlePannels[i] = 0;
+            }
         </script>
     </body>
 </html>

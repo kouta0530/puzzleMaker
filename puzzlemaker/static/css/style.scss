@@ -111,7 +111,7 @@ body{
         }
 
         .card{
-            @include Frame(300px,300px,10px,0);
+            @include Frame(300px,400px,10px,0);
             background-color: bisque;
             border:2px solid white;
             text-align: center;
@@ -124,6 +124,18 @@ body{
             .submit{
                 @include button(red);
                 padding:15px 20px;
+            }
+
+            .delete{
+                @include button(red);
+            }
+
+            button{
+                @include button(red);
+                a{
+                    color:white;
+                    text-decoration: none;
+                }
             }
 
         }

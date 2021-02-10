@@ -2,7 +2,8 @@
 *.env
 *.pyc
 *.cfg
-./puzzlemaker/lib
-./puzzlemaker/lib64
-./puzzlemaker/bin/
-./puzzlemaker/share/*
+*.css.map
+/puzzlemaker/lib
+/puzzlemaker/lib64
+/puzzlemaker/bin/
+/puzzlemaker/share/

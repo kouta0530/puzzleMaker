@@ -32,7 +32,6 @@
                             <img src = {{data[v].url}} alt = {{data[v].name}}>
                             <br>
                             <button><a href= "work/{{v}}">修正</a></button>
-                            <br>
                             <form action = "delete/{{v}}" method="POST">
                                 <input type= "hidden" name = "delete" value="DELETE">
                                 <input type= "submit" class="delete" value = "削除">
