@@ -18,20 +18,22 @@ def index():
 def signup():
     global user_is_authenticated
 
-    email = request.form["email"]
-    password = request.form["password"]
+    formData = request.json
+
+    email = formData["email"]
+    password = formData["password"]
     token = auth.signup(email, password)
 
     if(token == 0):
-        return render_template("index.html", err="emailとパスワードを入力してください")
+        return json.dumps({"user_is_authenticated": False})
 
     if(token == 1):
-        return render_template("index.html", err="既にemailが使われています")
+        return json.dumps({"user_is_authenticated": False, "message": "emailがすでに登録されています"})
 
     expires = int(datetime.datetime.now().timestamp()) + 60 * 60 * 24
     user_is_authenticated = True
 
-    res = make_response(redirect(url_for("index")))
+    res = make_response(json.dumps({"user_is_authenticated": True}))
     res.set_cookie("token", expires=expires, value=json.dumps(token))
 
     return res
