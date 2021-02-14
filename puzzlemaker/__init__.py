@@ -1,9 +1,8 @@
+import puzzlemaker.views
 from flask import Flask
-#from flask_sqlalchemy import SQLAlchemy
+from flask_cors import CORS
+
 
 app = Flask(__name__)
-#app.config.from_object("test.config")
 
-#db = SQLAlchemy(app)
-
-import puzzlemaker.views
+CORS(app, allow_headers="Content-Type")

@@ -13,15 +13,6 @@ def init():
     return 0
 
 
-def select_filter(filter):
-    return 0
-
-
-def select_all():
-    #puzzle_data = Puzzle.query.order_by(Puzzle.id.desc()).all()
-    return 0  # puzzle_data
-
-
 def create_puzzleData(file, name, size, user_id):
     fdb = fireDB.Firebase(setting.cred, setting.option)
     id = str(uuid.uuid4())
