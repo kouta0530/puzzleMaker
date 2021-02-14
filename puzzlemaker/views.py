@@ -122,9 +122,11 @@ def puzzle():
 
 @app.route("/select")
 def show_list():
-    #datas = models.select_all()
     datas = models.get_puzzleList()
-    return render_template("select.html", datas=datas, auth=user_is_authenticated)
+    response = [datas[k] for k in datas]
+    print(response)
+
+    return json.dumps(response)
 
 
 @app.route("/play/<string:id>")
