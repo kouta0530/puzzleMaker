@@ -134,13 +134,13 @@ def play_game(id):
     image, data = models.get_pannel(id)
     puzzles = models.make_puzzle_gameset(data, image)
 
-    return json.dumps(puzzles)
+    return json.dumps({"info":data,"piece":puzzles})
     #return render_template("game.html", data=data, puzzles=puzzles, auth=user_is_authenticated)
 
 
 @app.route("/work/<string:id>")
 def work(id):
-
+    
     return render_template("updateForm.html", id=id)
 
 
