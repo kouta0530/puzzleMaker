@@ -123,10 +123,10 @@ def puzzle():
 @app.route("/select")
 def show_list():
     datas = models.get_puzzleList()
+    print(datas)
     response = [datas[k] for k in datas]
-    print(response)
 
-    return json.dumps(response)
+    return json.dumps(datas)
 
 
 @app.route("/play/<string:id>")
@@ -134,7 +134,8 @@ def play_game(id):
     image, data = models.get_pannel(id)
     puzzles = models.make_puzzle_gameset(data, image)
 
-    return render_template("game.html", data=data, puzzles=puzzles, auth=user_is_authenticated)
+    return json.dumps(puzzles)
+    #return render_template("game.html", data=data, puzzles=puzzles, auth=user_is_authenticated)
 
 
 @app.route("/work/<string:id>")
