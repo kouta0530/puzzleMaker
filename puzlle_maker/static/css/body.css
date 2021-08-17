@@ -1,0 +1,41 @@
+body {
+  margin: 0;
+  height: 100%;
+}
+
+aside {
+  width: 300px;
+  height: 100%;
+  position: fixed;
+  top: 115px;
+  left: 0;
+}
+
+aside nav ul {
+  list-style: none;
+}
+
+aside nav ul li {
+  font-size: 20px;
+  margin: 32px 0;
+}
+
+aside nav ul li i {
+  width: 45px;
+  margin-left: 16px;
+  text-align: center;
+}
+
+aside nav ul li:hover {
+  cursor: pointer;
+  color: #777;
+}
+
+.container {
+  margin-left: 300px;
+  height: 100%;
+}
+
+.container .no-puzzle-data-msg {
+  text-align: center;
+}

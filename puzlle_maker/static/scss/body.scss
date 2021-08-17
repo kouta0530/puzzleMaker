@@ -1,0 +1,40 @@
+body {
+  margin: 0;
+  height: 100%;
+}
+
+aside {
+  width: 300px;
+  height: 100%;
+  position: fixed;
+  top: 115px;
+  left: 0;
+
+  nav {
+    ul {
+      list-style: none;
+
+      li {
+        font-size: 20px;
+        margin: 32px 0;
+        i {
+          width: 45px;
+          margin-left: 16px;
+          text-align: center;
+        }
+        &:hover {
+          cursor: pointer;
+          color: #777;
+        }
+      }
+    }
+  }
+}
+
+.container {
+  margin-left: 300px;
+  height: 100%;
+  .no-puzzle-data-msg {
+    text-align: center;
+  }
+}
