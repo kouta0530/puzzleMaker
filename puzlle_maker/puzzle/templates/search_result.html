@@ -1,6 +1,12 @@
 {% extends 'base.html' %} {% block title %} puzzle maker {% endblock %}
 {%block　sidebar %} {% include 'side.html' %} {% endblock %} {% block content %}
 <div class="no-puzzle-data-msg">
-  <h2>まだパズルゲームが投稿されていません</h2>
+  {% if puzzle %}
+  <div>
+    {{ puzzle }}
+  </div>
+  {% else %}
+  <h2>パズルが投稿されていません</h2>
+  {% endif%}
 </div>
 {% endblock %}
