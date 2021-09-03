@@ -5,8 +5,9 @@ from puzzle.models import Puzzle
 
 
 def index(request):
-    puzzle = Puzzle.objects.filter(pk__range=(1, 30))
-    return render(request, './search_result.html', puzzle=puzzle)
+    data = {'puzzle': list(
+        Puzzle.objects.filter(pk__range=(1, 30)).values())}
+    return render(request, './search_result.html', data)
 
 
 def get_puzzle_data(request, id):
