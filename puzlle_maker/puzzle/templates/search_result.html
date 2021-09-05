@@ -2,8 +2,14 @@
 {%block　sidebar %} {% include 'side.html' %} {% endblock %} {% block content %}
 <div class="no-puzzle-data-msg">
   {% if puzzle %}
-  <div>
-    {{ puzzle }}
+  <div class="puzzle-container">
+    {% for p in puzzle %}
+    <div class="puzzle">
+      <img src={{p.picture_url}} alt={{p.title}}>
+      <img src="" alt="投稿者アイコン">
+      <h3>{{p.title}}</h3>
+    </div>
+    {% endfor %}
   </div>
   {% else %}
   <h2>パズルが投稿されていません</h2>
