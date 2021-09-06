@@ -39,3 +39,19 @@ aside nav ul li:hover {
 .container .no-puzzle-data-msg {
   text-align: center;
 }
+
+.puzzle-container {
+  display: flex;
+}
+
+.puzzle-container .puzzle {
+  width: 300px;
+  height: 300px;
+  margin: 50px;
+}
+
+.puzzle-container .puzzle img {
+  width: 300px;
+  height: 250px;
+  display: block;
+}

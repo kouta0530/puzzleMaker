@@ -38,3 +38,19 @@ aside {
     text-align: center;
   }
 }
+
+.puzzle-container {
+  display: flex;
+
+  .puzzle {
+    width: 300px;
+    height: 300px;
+    margin: 50px;
+
+    img {
+      width: 300px;
+      height: 250px;
+      display: block;
+    }
+  }
+}
