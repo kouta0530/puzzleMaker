@@ -45,12 +45,16 @@ aside {
   .puzzle {
     width: 300px;
     height: 300px;
-    margin: 50px;
+    margin-top: 50px;
+    margin-left: 50px;
 
     img {
       width: 300px;
       height: 250px;
       display: block;
+    }
+    .user-icon {
+      margin-top: 20px;
     }
   }
 }
