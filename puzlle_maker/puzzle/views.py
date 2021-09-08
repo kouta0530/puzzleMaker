@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from django.http import HttpResponse
 from puzzle.models import Puzzle
+import json
 # Create your views here.
 
 
@@ -11,4 +12,7 @@ def index(request):
 
 
 def get_puzzle_data(request, id):
-    return HttpResponse('get puzzle json array response')
+    data = list(Puzzle.objects.filter(pk__range=(id + 1, id + 30)).values())
+
+    return HttpResponse(json.dumps(data, ensure_ascii=False),
+                        content_type="application/json")
