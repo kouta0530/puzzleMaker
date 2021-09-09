@@ -14,5 +14,5 @@ def index(request):
 def get_puzzle_data(request, id):
     data = list(Puzzle.objects.filter(pk__range=(id + 1, id + 30)).values())
 
-    return HttpResponse(json.dumps(data, ensure_ascii=False),
+    return HttpResponse(json.dumps(data, ensure_ascii=False, default=str),
                         content_type="application/json")
