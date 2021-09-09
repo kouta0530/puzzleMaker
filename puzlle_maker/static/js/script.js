@@ -1,10 +1,9 @@
 const container = document.querySelector(".puzzle-container");
 let reading = false;
 let loadedContents = 0;
+let id = 0;
 
-console.log("hello world");
-
-window.addEventListener("scroll", (e) => {
+window.addEventListener("scroll", async (e) => {
   if (!reading) {
     const bodyHeight = document.body.clientHeight;
     const windowHeight = window.innerHeight;
@@ -26,6 +25,10 @@ window.addEventListener("scroll", (e) => {
       `;
 
       container.appendChild(div);
+      reading = true;
+      const res = await fetch(`http://localhost:8000/puzzles/${id}`);
+      res.json().then((d) => console.log(d));
+      reading = false;
     }
   }
 });
