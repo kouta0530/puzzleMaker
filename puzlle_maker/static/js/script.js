@@ -33,6 +33,7 @@ window.addEventListener("scroll", (e) => {
           for (article of articles) {
             showAdditionalArticle(article);
           }
+          id += 1;
         })
         .catch((e) => {
           alert("取得に失敗しました");
