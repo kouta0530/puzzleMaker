@@ -1,3 +1,4 @@
+# from django.core.exceptions import ValidationError
 from django.test import TestCase
 from django.utils import timezone
 from puzzle.models import Puzzle
@@ -11,4 +12,4 @@ class PuzzleTest(TestCase):
             update_at=timezone.now(), picture_url="test.png", user_id="1abc")
 
     def test_valid_user(self):
-        self.assertIs(Puzzle.objects.filter(pk=1).exists(), True)
+        self.assertEquals(Puzzle.objects.all().count(), 1)
