@@ -43,3 +43,19 @@ class PuzzleTest(TestCase):
             exception.message_dict,
             {'title':
              ['Ensure this value has at most 200 characters (it has 201).']})
+
+    def test_size_under_min_value(self):
+        with self.assertRaises(ValidationError) as e:
+            smaller_size_puzzle = Puzzle(
+                title="smaller puzzle",
+                size=1, created_at=timezone.now(), update_at=timezone.now(),
+                picture_url="test.png", user_id="user_2")
+            smaller_size_puzzle.full_clean()
+        exception = e.exception
+        expected = {
+            'size':
+            ['Ensure this value is greater than or equal to 2.']
+        }
+
+        self.assertEquals(exception.message_dict, expected)
+        self.assertEquals(Puzzle.objects.all().count(), 1)
