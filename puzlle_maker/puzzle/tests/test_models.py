@@ -65,3 +65,10 @@ class PuzzleTest(TestCase):
 
         self.assertEquals(exception.message_dict, expected)
         self.assertEquals(Puzzle.objects.all().count(), 1)
+
+    def test_size_over_max_value(self):
+        self.puzzle.size = 11
+        exception = self.check_validation()
+        self.assertEquals(exception.message_dict, {
+                          'size':
+                          ['Ensure this value is less than or equal to 10.']})
