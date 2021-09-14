@@ -11,6 +11,12 @@ class PuzzleTest(TestCase):
             title="test puzzle", size=2, created_at=timezone.now(),
             update_at=timezone.now(), picture_url="test.png", user_id="1abc")
 
+    def check_validation(self):
+        with self.assertRaises(ValidationError) as e:
+            self.puzzle.full_clean()
+
+        return e.exception
+
     def test_valid_user(self):
         self.assertEquals(Puzzle.objects.all().count(), 1)
 
