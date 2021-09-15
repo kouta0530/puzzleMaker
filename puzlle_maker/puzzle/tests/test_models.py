@@ -72,3 +72,11 @@ class PuzzleTest(TestCase):
         self.assertEquals(exception.message_dict, {
                           'size':
                           ['Ensure this value is less than or equal to 10.']})
+
+    def test_user_id_not_presence(self):
+        self.puzzle.user_id = ""
+        self.assertEquals(
+            self.check_validation().message_dict, {
+                'user_id':
+                ['This field cannot be blank.']}
+        )
