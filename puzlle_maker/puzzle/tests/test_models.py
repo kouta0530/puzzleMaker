@@ -80,3 +80,13 @@ class PuzzleTest(TestCase):
                 'user_id':
                 ['This field cannot be blank.']}
         )
+
+    def test_user_id_over_max_length(self):
+        self.puzzle.user_id = "a" * 201
+        self.assertEquals(
+            self.check_validation().message_dict,
+            {
+                'user_id':
+                ['Ensure this value has at most 200 characters (it has 201).']
+            }
+        )
