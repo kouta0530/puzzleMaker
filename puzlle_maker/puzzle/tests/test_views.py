@@ -24,6 +24,10 @@ class ViewsTest(TestCase):
         self.assertEquals(response.context['puzzle'], compared_data)
 
     def test_get_additional_puzzle_data(self):
-        url = reverse('get puzzle data', kwargs={'id': 0})
+        url = reverse('get puzzle data', kwargs={'id': 1})
         response = self.client.get(url)
+        additional_puzzles = response.json()
         self.assertEquals(response.status_code, 200)
+        self.assertEquals(len(additional_puzzles), 30)
+        self.assertEquals(additional_puzzles[0]['id'], 31)
+        self.assertEquals(additional_puzzles[-1]['id'], 60)
