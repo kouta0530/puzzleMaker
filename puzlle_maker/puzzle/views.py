@@ -14,7 +14,7 @@ def index(request):
 def get_puzzle_data(request, id):
     count = Puzzle.objects.all().count()
     end = (id + 1) * 30 if (id + 1) * 30 > count else count
-    data = list(Puzzle.objects.filter())[id * 30 + 1:end - 1]
+    data = list(Puzzle.objects.filter().values())[id * 30 + 1:end - 1]
 
     return HttpResponse(json.dumps(data, ensure_ascii=False, default=str),
                         content_type="application/json")
