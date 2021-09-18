@@ -7,7 +7,7 @@ from django.utils import timezone
 class ViewsTest(TestCase):
     def setUp(self):
         self.client = Client()
-        for i in range(60):
+        for i in range(62):
             self.puzzle = Puzzle.objects.create(
                 title="test" + str(i),
                 size=2,
@@ -29,5 +29,5 @@ class ViewsTest(TestCase):
         additional_puzzles = response.json()
         self.assertEquals(response.status_code, 200)
         self.assertEquals(len(additional_puzzles), 30)
-        self.assertEquals(additional_puzzles[0]['id'], 31)
-        self.assertEquals(additional_puzzles[-1]['id'], 60)
+        self.assertEquals(additional_puzzles[0]['title'], 'test31')
+        self.assertEquals(additional_puzzles[-1]['title'], 'test60')
