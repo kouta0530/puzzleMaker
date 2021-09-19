@@ -6,8 +6,8 @@ import json
 
 
 def index(request):
-    data = {'puzzle': list(
-        Puzzle.objects.filter(pk__range=(1, 30)).values())}
+    data = {'puzzle':
+            list(Puzzle.objects.all().values())[:30]}
     return render(request, './search_result.html', data)
 
 

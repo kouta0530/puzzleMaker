@@ -20,7 +20,7 @@ class ViewsTest(TestCase):
     def test_get_index_page(self):
         response = self.client.get('')
         self.assertEquals(response.status_code, 200)
-        compared_data = list(Puzzle.objects.filter(pk__range=(1, 30)).values())
+        compared_data = list(Puzzle.objects.all().values())[:30]
         self.assertEquals(response.context['puzzle'], compared_data)
 
     def test_get_additional_puzzle_data(self):
