@@ -18,3 +18,17 @@ services:
       - 8000:8000
     depends_on:
       - db
+  selenium-hub:
+    image: selenium/hub
+    container_name: selenium_hub
+    ports:
+      - 4444:4444
+  chrome:
+    image: selenium/node-chrome-debug:3.14.0
+    depends_on:
+      - selenium-hub
+    environment:
+      - HUB_POST=selenium.hub
+      - HUB_PORT=4444
+    ports:
+      - 5900:5900
