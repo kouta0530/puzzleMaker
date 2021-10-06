@@ -27,5 +27,5 @@ class IntegrationTest(LiveServerTestCase):
 
     def test_get_index_page(self):
         self.selenium.get('%s%s' % (self.live_server_url, '/'))
-        e = self.selenium.find_element_by_tag_name('body')
-        print(e.text)
+        url = self.selenium.find_element_by_tag_name('a').get_attribute('href')
+        self.assertEquals(url, self.live_server_url + '/')
