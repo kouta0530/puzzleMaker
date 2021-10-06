@@ -1,6 +1,8 @@
 from django.test import LiveServerTestCase
 from selenium import webdriver
 from selenium.webdriver.common.desired_capabilities import DesiredCapabilities
+from puzzle.models import Puzzle
+from django.utils import timezone
 
 
 class IntegrationTest(LiveServerTestCase):
@@ -29,3 +31,7 @@ class IntegrationTest(LiveServerTestCase):
         self.selenium.get('%s%s' % (self.live_server_url, '/'))
         url = self.selenium.find_element_by_tag_name('a').get_attribute('href')
         self.assertEquals(url, self.live_server_url + '/')
+
+        msg = self.selenium.find_element_by_class_name(
+            'no-puzzle-data-msg').text
+        self.assertEquals(msg, 'パズルが投稿されていません')
