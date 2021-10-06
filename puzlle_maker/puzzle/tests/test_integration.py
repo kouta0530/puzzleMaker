@@ -1,25 +1,31 @@
-from django.contrib.staticfiles.testing import StaticLiveServerTestCase
+from django.test import LiveServerTestCase
 from selenium import webdriver
 from selenium.webdriver.common.desired_capabilities import DesiredCapabilities
 
 
-class IntegrationTest(StaticLiveServerTestCase):
-    def setUp(self):
+class IntegrationTest(LiveServerTestCase):
+
+    @classmethod
+    def setUpClass(cls):
         options = webdriver.ChromeOptions()
         options.add_argument('--no-sandbox')
         options.add_argument("--headless")
         options.add_argument("--disable-dev-shm-usage")
-
-        self.selenium = webdriver.Remote(
+        cls.host = 'web'
+        cls.selenium = webdriver.Remote(
             command_executor='http://selenium:4444/wd/hub',
             desired_capabilities=DesiredCapabilities.CHROME,
             options=options
         )
+        cls.selenium.implicitly_wait(5)
+        super(IntegrationTest, cls).setUpClass()
 
-    def tearDown(self):
-        self.selenium.quit()
+    @classmethod
+    def tearDownClass(cls):
+        cls.selenium.quit()
+        super(IntegrationTest, cls).tearDownClass()
 
     def test_get_index_page(self):
-        self.selenium.get('http://127.0.0.1:8000')
-        e = self.selenium.find_element_by_tag_name('head')
-        print('test', e.text)
+        self.selenium.get('%s%s' % (self.live_server_url, '/'))
+        e = self.selenium.find_element_by_tag_name('body')
+        print(e.text)
