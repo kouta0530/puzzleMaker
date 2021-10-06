@@ -35,3 +35,15 @@ class IntegrationTest(LiveServerTestCase):
         msg = self.selenium.find_element_by_class_name(
             'no-puzzle-data-msg').text
         self.assertEquals(msg, 'パズルが投稿されていません')
+        Puzzle.objects.create(
+            title='test',
+            size=2,
+            created_at=timezone.now(),
+            update_at=timezone.now(),
+            picture_url="test.png",
+            user_id="abdg3fh"
+        )
+        self.selenium.get('%s%s' % (self.live_server_url, '/'))
+        msg = self.selenium.find_elements_by_class_name(
+            'no-puzzle-data-msg')
+        self.assertEquals(msg, [])
