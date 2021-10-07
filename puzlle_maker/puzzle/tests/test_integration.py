@@ -27,14 +27,18 @@ class IntegrationTest(LiveServerTestCase):
         cls.selenium.quit()
         super(IntegrationTest, cls).tearDownClass()
 
-    def test_get_index_page(self):
+    def test_title_logo_url(self):
         self.selenium.get('%s%s' % (self.live_server_url, '/'))
         url = self.selenium.find_element_by_tag_name('a').get_attribute('href')
         self.assertEquals(url, self.live_server_url + '/')
 
+    def test_msg_no_posted_puzzle(self):
+        self.selenium.get('%s%s' % (self.live_server_url, '/'))
         msg = self.selenium.find_element_by_class_name(
             'no-puzzle-data-msg').text
         self.assertEquals(msg, 'パズルが投稿されていません')
+
+    def test_posted_puzzle(self):
         Puzzle.objects.create(
             title='test',
             size=2,
