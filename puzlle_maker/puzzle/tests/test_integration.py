@@ -51,3 +51,14 @@ class IntegrationTest(LiveServerTestCase):
         msg = self.selenium.find_elements_by_class_name(
             'no-puzzle-data-msg')
         self.assertEquals(msg, [])
+
+        puzzle = self.selenium.find_element_by_class_name('puzzle')
+        puzzle_title = puzzle.find_element_by_tag_name('h3')
+        puzzle_imgs = puzzle.find_elements_by_tag_name('img')
+
+        self.assertEquals(puzzle_title.text, 'test')
+        self.assertEquals(len(puzzle_imgs), 2)
+        self.assertEquals(
+            puzzle_imgs[0].get_attribute('src'),
+            self.live_server_url + '/static/img/no_image.png')
+        self.assertEquals(puzzle_imgs[1].get_attribute('alt'), '投稿者アイコン')
