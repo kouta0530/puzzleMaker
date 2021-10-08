@@ -1,8 +1,7 @@
 from django.test import LiveServerTestCase
 from selenium import webdriver
 from selenium.webdriver.common.desired_capabilities import DesiredCapabilities
-from puzzle.models import Puzzle
-from django.utils import timezone
+from puzzle.tests.helper import make_Puzzles
 
 
 class IntegrationTest(LiveServerTestCase):
@@ -39,14 +38,7 @@ class IntegrationTest(LiveServerTestCase):
         self.assertEquals(msg, 'パズルが投稿されていません')
 
     def test_posted_puzzle(self):
-        Puzzle.objects.create(
-            title='test',
-            size=2,
-            created_at=timezone.now(),
-            update_at=timezone.now(),
-            picture_url="test.png",
-            user_id="abdg3fh"
-        )
+        make_Puzzles(1)
         self.selenium.get('%s%s' % (self.live_server_url, '/'))
         msg = self.selenium.find_elements_by_class_name(
             'no-puzzle-data-msg')
@@ -56,7 +48,7 @@ class IntegrationTest(LiveServerTestCase):
         puzzle_title = puzzle.find_element_by_tag_name('h3')
         puzzle_imgs = puzzle.find_elements_by_tag_name('img')
 
-        self.assertEquals(puzzle_title.text, 'test')
+        self.assertEquals(puzzle_title.text, 'test1')
         self.assertEquals(len(puzzle_imgs), 2)
         self.assertEquals(
             puzzle_imgs[0].get_attribute('src'),
