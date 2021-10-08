@@ -27,7 +27,7 @@ window.addEventListener("scroll", (e) => {
 
     if (bottomPoint <= currentPoint) {
       reading = true;
-      fetch(`http://localhost:8000/puzzles/${id}`)
+      fetch("http://" + window.location.host + `/puzzles/${id}`)
         .then((res) => res.json())
         .then((articles) => {
           for (article of articles) {
