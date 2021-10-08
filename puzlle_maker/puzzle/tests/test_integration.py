@@ -60,3 +60,7 @@ class IntegrationTest(LiveServerTestCase):
         self.selenium.get('%s%s' % (self.live_server_url, '/'))
         puzzles = self.selenium.find_elements_by_class_name('puzzle')
         self.assertEquals(len(puzzles), 30)
+        self.selenium.execute_script(
+            "window.scrollTo(0, document.body.clientHeight);")
+
+        puzzles = self.selenium.find_elements_by_class_name('puzzle')
