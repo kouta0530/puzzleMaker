@@ -54,3 +54,9 @@ class IntegrationTest(LiveServerTestCase):
             puzzle_imgs[0].get_attribute('src'),
             self.live_server_url + '/static/img/no_image.png')
         self.assertEquals(puzzle_imgs[1].get_attribute('alt'), '投稿者アイコン')
+
+    def test_scroll_load_puzzles(self):
+        make_Puzzles(40)
+        self.selenium.get('%s%s' % (self.live_server_url, '/'))
+        puzzles = self.selenium.find_elements_by_class_name('puzzle')
+        self.assertEquals(len(puzzles), 30)
