@@ -6,7 +6,7 @@ import uuid
 def make_Puzzles(num_create):
     for i in range(num_create):
         Puzzle.objects.create(
-            title='test' + str(num_create),
+            title='test' + str(i),
             size=2,
             created_at=timezone.now(),
             update_at=timezone.now(),

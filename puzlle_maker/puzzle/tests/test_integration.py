@@ -48,7 +48,7 @@ class IntegrationTest(LiveServerTestCase):
         puzzle_title = puzzle.find_element_by_tag_name('h3')
         puzzle_imgs = puzzle.find_elements_by_tag_name('img')
 
-        self.assertEquals(puzzle_title.text, 'test1')
+        self.assertEquals(puzzle_title.text, 'test0')
         self.assertEquals(len(puzzle_imgs), 2)
         self.assertEquals(
             puzzle_imgs[0].get_attribute('src'),
