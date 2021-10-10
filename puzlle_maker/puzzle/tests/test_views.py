@@ -29,11 +29,11 @@ class ViewsTest(TestCase):
         additional_puzzles = response.json()
         self.assertEquals(response.status_code, 200)
         self.assertEquals(len(additional_puzzles), 30)
-        self.assertEquals(additional_puzzles[0]['title'], 'test31')
-        self.assertEquals(additional_puzzles[-1]['title'], 'test60')
+        self.assertEquals(additional_puzzles[0]['title'], 'test30')
+        self.assertEquals(additional_puzzles[-1]['title'], 'test59')
 
     def test_can_not_be_acquired_30_pieces_of_data(self):
         url = reverse('get puzzle data', kwargs={'id': 2})
         response = self.client.get(url)
         additional_puzzles = response.json()
-        self.assertEquals(len(additional_puzzles), 1)
+        self.assertEquals(len(additional_puzzles), 2)
