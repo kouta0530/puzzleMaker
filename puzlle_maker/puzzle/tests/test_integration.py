@@ -57,10 +57,14 @@ class IntegrationTest(LiveServerTestCase):
 
     def test_scroll_load_puzzles(self):
         make_Puzzles(40)
+
         self.selenium.get('%s%s' % (self.live_server_url, '/'))
         puzzles = self.selenium.find_elements_by_class_name('puzzle')
         self.assertEquals(len(puzzles), 30)
-        self.selenium.execute_script(
-            "window.scrollTo(0, document.body.clientHeight);")
 
-        puzzles = self.selenium.find_elements_by_class_name('puzzle')
+        self.selenium.execute_script(
+            "window.scrollTo(0, document.body.scrollHeight)")
+        self.selenium.implicitly_wait(10)
+        self.selenium.page_source
+        loaded_puzzle = self.selenium.find_elements_by_class_name('puzzle')
+        self.assertEquals(len(loaded_puzzle), 40)
