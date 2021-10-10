@@ -27,13 +27,13 @@ window.addEventListener("scroll", (e) => {
 
     if (bottomPoint <= currentPoint) {
       reading = true;
+      id += 1;
       fetch("http://" + window.location.host + `/puzzles/${id}`)
         .then((res) => res.json())
         .then((articles) => {
           for (article of articles) {
             showAdditionalArticle(article);
           }
-          id += 1;
         })
         .catch((e) => {
           alert("取得に失敗しました");
