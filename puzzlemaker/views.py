@@ -18,20 +18,22 @@ def index():
 def signup():
     global user_is_authenticated
 
-    email = request.form["email"]
-    password = request.form["password"]
+    formData = request.json
+
+    email = formData["email"]
+    password = formData["password"]
     token = auth.signup(email, password)
 
     if(token == 0):
-        return render_template("index.html", err="emailとパスワードを入力してください")
+        return json.dumps({"user_is_authenticated": False})
 
     if(token == 1):
-        return render_template("index.html", err="既にemailが使われています")
+        return json.dumps({"user_is_authenticated": False, "message": "emailがすでに登録されています"})
 
     expires = int(datetime.datetime.now().timestamp()) + 60 * 60 * 24
     user_is_authenticated = True
 
-    res = make_response(redirect(url_for("index")))
+    res = make_response(json.dumps({"user_is_authenticated": True}))
     res.set_cookie("token", expires=expires, value=json.dumps(token))
 
     return res
@@ -120,9 +122,11 @@ def puzzle():
 
 @app.route("/select")
 def show_list():
-    #datas = models.select_all()
     datas = models.get_puzzleList()
-    return render_template("select.html", datas=datas, auth=user_is_authenticated)
+    print(datas)
+    response = [datas[k] for k in datas]
+
+    return json.dumps(datas)
 
 
 @app.route("/play/<string:id>")
@@ -130,12 +134,13 @@ def play_game(id):
     image, data = models.get_pannel(id)
     puzzles = models.make_puzzle_gameset(data, image)
 
-    return render_template("game.html", data=data, puzzles=puzzles, auth=user_is_authenticated)
+    return json.dumps({"info":data,"piece":puzzles})
+    #return render_template("game.html", data=data, puzzles=puzzles, auth=user_is_authenticated)
 
 
 @app.route("/work/<string:id>")
 def work(id):
-
+    
     return render_template("updateForm.html", id=id)
 
 

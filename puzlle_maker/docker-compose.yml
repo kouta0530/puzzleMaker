@@ -1,0 +1,28 @@
+version: "3"
+
+services:
+  db:
+    image: postgres
+    ports:
+      - "5432"
+    environment:
+      - POSTGRES_DB=postgres
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+  web:
+    build: .
+    command: python3 manage.py runserver 0.0.0.0:8000
+    volumes:
+      - .:/puzzle_maker
+    ports:
+      - 8000:8000
+    depends_on:
+      - db
+    links:
+      - selenium
+  selenium:
+    image: selenium/standalone-chrome-debug
+    container_name: "django_selenium"
+    ports:
+      - 4444:4444
+      - 5900:5900
