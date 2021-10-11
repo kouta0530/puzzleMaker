@@ -1,0 +1,50 @@
+header {
+  background-color: black;
+  color: white;
+  height: 115px;
+  width: 100%;
+  display: flex;
+  position: sticky;
+  top: 0;
+}
+
+header h1 {
+  width: 490px;
+  text-transform: uppercase;
+  margin: auto 40px;
+}
+
+header h1:hover {
+  cursor: pointer;
+}
+
+header h1 a {
+  text-decoration: none;
+  color: white;
+}
+
+header .puzzle-search {
+  margin: auto 0;
+}
+
+header .puzzle-search-bar {
+  height: 26px;
+  width: 450px;
+  border-radius: 5px;
+  font-size: 16px;
+  padding-left: 8px;
+}
+
+header .puzzle-search button {
+  height: 26px;
+  width: 45px;
+  border: none;
+  background-color: black;
+  color: white;
+  font-size: 16px;
+}
+
+header .puzzle-search button:hover {
+  cursor: pointer;
+  opacity: 0.5;
+}
