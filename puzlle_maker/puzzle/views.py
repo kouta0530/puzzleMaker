@@ -1,5 +1,6 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
+from django.db.models import Q
 from puzzle.models import Puzzle
 import json
 # Create your views here.
@@ -24,9 +25,13 @@ def search_puzzle_data(request):
 
     if search_words:
         search_words = search_words.split()
-        print(search_words)
-        puzzle_data = Puzzle.objects.filter(title__in=search_words)
 
+        q_objects = [Q(title__icontains=s) for s in search_words]
+        query = q_objects.pop()
+        for q in q_objects:
+            query |= q
+
+        puzzle_data = Puzzle.objects.filter(query)
         puzzle_data = {'puzzle': list(puzzle_data.values())}
         return render(request, './search_result.html', puzzle_data)
     else:
