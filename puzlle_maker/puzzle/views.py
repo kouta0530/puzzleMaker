@@ -19,7 +19,9 @@ def get_puzzle_data(request, id):
                         content_type="application/json")
 
 
-def search_puzzle_data(request, search_words):
+def search_puzzle_data(request):
+    search_words = request.GET.get('search_words')
+
     if search_words:
         search_words = search_words.split()
         print(search_words)
