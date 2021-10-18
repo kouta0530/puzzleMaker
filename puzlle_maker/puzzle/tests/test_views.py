@@ -37,3 +37,9 @@ class ViewsTest(TestCase):
         response = self.client.get(url)
         additional_puzzles = response.json()
         self.assertEquals(len(additional_puzzles), 2)
+
+    def test_search_for_words_equals_title_puzzle_data(self):
+        response = self.client.get('/puzzles/?search_words=test')
+        self.assertEquals(response.status_code, 200)
+        self.assertEquals(response.context['puzzle'],
+                          list(Puzzle.objects.all().values())[:62])
