@@ -20,12 +20,10 @@ def get_puzzle_data(request, id):
 
 
 def search_puzzle_data(request, search_words):
-    puzzle_data = Puzzle.objects.all()
     if search_words:
         search_words = search_words.split()
         print(search_words)
-        for word in search_words:
-            puzzle_data = puzzle_data.filter(title__icontains=word)
+        puzzle_data = Puzzle.objects.filter(title__in=search_words)
 
         puzzle_data = list(puzzle_data.values())
         return HttpResponse(json.dumps(puzzle_data, ensure_ascii=False,
