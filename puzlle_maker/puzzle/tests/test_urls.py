@@ -13,5 +13,5 @@ class UrlsTest(TestCase):
         self.assertEqual(resolve(url).func, get_puzzle_data)
 
     def test_search_puzzle_data_url(self):
-        url = reverse('search puzzle data', kwargs={'search_words': 'test'})
+        url = reverse('search puzzle data')
         self.assertEquals(resolve(url).func, search_puzzle_data)
