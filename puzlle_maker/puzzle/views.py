@@ -27,9 +27,7 @@ def search_puzzle_data(request):
         print(search_words)
         puzzle_data = Puzzle.objects.filter(title__in=search_words)
 
-        puzzle_data = list(puzzle_data.values())
-        return HttpResponse(json.dumps(puzzle_data, ensure_ascii=False,
-                                       default=str),
-                            content_type='applicaion/json')
+        puzzle_data = {'puzzle': list(puzzle_data.values())}
+        return render(request, './search_result.html', puzzle_data)
     else:
         return redirect('index')
