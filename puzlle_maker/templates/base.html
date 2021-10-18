@@ -16,8 +16,10 @@
     <header>
       <h1 class="logo"><a href="{% url 'index' %}">PuzzleMaker</a></h1>
       <div class="puzzle-search">
-        <input type="text" class="puzzle-search-bar" />
-        <button class="puzzle-search-btn"><i class="fas fa-search"></i></button>
+        <form method="GET" action="{% url 'search puzzle data' %}">
+          <input type="text" name='search_words' class="puzzle-search-bar" />
+          <button type="submit" class="puzzle-search-btn"><i class="fas fa-search"></i></button>
+        </form>
       </div>
     </header>
     {% block sidebar %}{% endblock %}
