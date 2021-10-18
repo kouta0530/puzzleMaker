@@ -16,5 +16,7 @@
   <h2>パズルが投稿されていません</h2>
 </div>
 {% endif %}
+{% if request.path == '/'%}
 <script src="{% static 'js/script.js' %}"></script>
+{% endif %}
 {% endblock %}
