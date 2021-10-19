@@ -58,3 +58,7 @@ class ViewsTest(TestCase):
         response = self.client.get('/puzzles/')
         self.assertEquals(response.status_code, 302)
         self.assertEquals(response.url, '/')
+
+    def test_no_work_that_matches_the_search_results(self):
+        response = self.client.get('/puzzles/?search_words=aaaaaaaa')
+        self.assertIn("パズルが投稿されていません", response.content.decode())
