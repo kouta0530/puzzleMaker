@@ -84,3 +84,9 @@ class IntegrationTest(LiveServerTestCase):
 
         search_result = self.selenium.find_elements_by_class_name('puzzle')
         self.assertEquals(len(search_result), 2)
+
+        self.selenium.execute_script(
+            "window.scrollTo(0, document.body.scrollHeight)")
+        self.selenium.page_source
+        search_result = self.selenium.find_elements_by_class_name('puzzle')
+        self.assertEquals(len(search_result), 2)
