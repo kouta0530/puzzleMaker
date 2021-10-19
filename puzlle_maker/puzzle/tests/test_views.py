@@ -53,3 +53,8 @@ class ViewsTest(TestCase):
                               user_id="abdg3fh")
         response = self.client.get("/puzzles/?search_words=test1 cat")
         self.assertEquals(len(response.context['puzzle']), 12)
+
+    def test_search_with_blanks(self):
+        response = self.client.get('/puzzles/')
+        self.assertEquals(response.status_code, 302)
+        self.assertEquals(response.url, '/')
