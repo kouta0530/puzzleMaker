@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from django.db.models import Q
 from puzzle.models import Puzzle
+from puzzle.helper import create_index
 import json
 # Create your views here.
 
@@ -31,8 +32,10 @@ def search_puzzle_data(request):
         for q in q_objects:
             query |= q
 
-        puzzle_data = Puzzle.objects.filter(query)
-        puzzle_data = {'puzzle': list(puzzle_data.values())}
+        puzzle_model = Puzzle.objects.filter(query)
+
+        puzzle_data = {'puzzle': list(
+            puzzle_model.values()), 'count': create_index(len(puzzle_model))}
         return render(request, './search_result.html', puzzle_data)
     else:
         return redirect('index')
