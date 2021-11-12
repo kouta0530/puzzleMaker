@@ -19,9 +19,9 @@
 {% if request.path == '/'%}
 <script src="{% static 'js/script.js' %}"></script>
 {% else %}
-<ul>
+<ul class="link-list">
   {% for i in count %}
-  <li>{{i}}</li>
+  <li><a href="{% url 'search puzzle data' %}?search_words={{search_words}}&id={{i}}">{{i}}</a></li>
   {% endfor %}
 </ul>
 {% endif %}
