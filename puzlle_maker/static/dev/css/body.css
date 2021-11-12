@@ -44,6 +44,7 @@ aside nav ul li:hover {
   display: flex;
   flex-wrap: wrap;
   padding-bottom: 100px;
+  min-height: 800px;
 }
 
 .puzzle-container .puzzle {
@@ -62,4 +63,25 @@ aside nav ul li:hover {
 
 .puzzle-container .puzzle .user-icon {
   margin-top: 20px;
+}
+
+.link-list {
+  list-style-type: none;
+  font-size: 18px;
+  text-align: center;
+}
+
+.link-list li {
+  display: inline;
+  margin: 10px;
+  font-size: 24px;
+}
+
+.link-list li a {
+  text-decoration: none;
+  color: black;
+}
+
+.link-list li a:hover {
+  color: orange;
 }
