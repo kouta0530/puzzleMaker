@@ -18,6 +18,7 @@
       <div class="puzzle-search">
         <form method="GET" action="{% url 'search puzzle data' %}">
           <input type="text" name='search_words' class="puzzle-search-bar" />
+          <input type="hidden" name="id" value=1>
           <button type="submit" class="puzzle-search-btn"><i class="fas fa-search"></i></button>
         </form>
       </div>
