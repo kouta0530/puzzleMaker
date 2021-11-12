@@ -23,19 +23,24 @@ def get_puzzle_data(request, id):
 
 def search_puzzle_data(request):
     search_words = request.GET.get('search_words')
+    id = int(request.GET.get('id'))
 
     if search_words:
-        search_words = search_words.split()
+        search_words_list = search_words.split()
 
-        q_objects = [Q(title__icontains=s) for s in search_words]
+        q_objects = [Q(title__icontains=s) for s in search_words_list]
         query = q_objects.pop()
         for q in q_objects:
             query |= q
 
         puzzle_model = Puzzle.objects.filter(query)
 
-        puzzle_data = {'puzzle': list(
-            puzzle_model.values()), 'count': create_index(len(puzzle_model))}
+        puzzle_data = {
+            'puzzle': list(puzzle_model[(id - 1) * 30:id * 30].values()),
+            'search_words': search_words,
+            'count': create_index(len(puzzle_model), 2)
+        }
+
         return render(request, './search_result.html', puzzle_data)
     else:
         return redirect('index')
