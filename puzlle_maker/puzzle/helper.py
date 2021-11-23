@@ -1,3 +1,8 @@
+def more_than_specified_number(amount, specified_number=0):
+    return specified_number \
+        if specified_number <= amount else amount
+
+
 def create_index(puzzles_nums, margin):
     index = 1
     if puzzles_nums / margin == 0:
