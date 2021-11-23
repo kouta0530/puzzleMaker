@@ -42,7 +42,17 @@ class ViewsTest(TestCase):
         response = self.client.get('/puzzles/?search_words=test')
         self.assertEquals(response.status_code, 200)
         self.assertEquals(response.context['puzzle'],
-                          list(Puzzle.objects.all().values())[:62])
+                          list(Puzzle.objects.all().values())[:30])
+
+        response = self.client.get('/puzzles/?search_words=test&id=2')
+        self.assertEquals(response.status_code, 200)
+        self.assertEquals(response.context['puzzle'],
+                          list(Puzzle.objects.all().values())[30:60])
+
+        response = self.client.get('/puzzles/?search_words=test&id=3')
+        self.assertEquals(response.status_code, 200)
+        self.assertEquals(response.context['puzzle'],
+                          list(Puzzle.objects.all().values())[60:62])
 
     def test_search_by_multiple_words(self):
         Puzzle.objects.create(title="cat",
@@ -60,5 +70,5 @@ class ViewsTest(TestCase):
         self.assertEquals(response.url, '/')
 
     def test_no_work_that_matches_the_search_results(self):
-        response = self.client.get('/puzzles/?search_words=aaaaaaaa')
+        response = self.client.get('/puzzles/?search_words=aaaaaaaa&id=1')
         self.assertIn("パズルが投稿されていません", response.content.decode())
