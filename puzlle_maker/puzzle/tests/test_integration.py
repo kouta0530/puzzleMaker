@@ -94,3 +94,5 @@ class IntegrationTest(LiveServerTestCase):
         search_result_index = self.selenium.find_element_by_class_name(
             'link-list')
         self.assertIsNotNone(search_result_index)
+        self.assertEquals(
+            len(search_result_index.find_elements_by_tag_name("li")), 1)
