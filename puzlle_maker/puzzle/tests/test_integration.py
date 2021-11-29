@@ -80,7 +80,7 @@ class IntegrationTest(LiveServerTestCase):
         submit_button.click()
 
         self.assertEquals(self.selenium.current_url, '%s%s' % (
-            self.live_server_url, '/puzzles/?search_words=test1'))
+            self.live_server_url, '/puzzles/?search_words=test1&id=1'))
 
         search_result = self.selenium.find_elements_by_class_name('puzzle')
         self.assertEquals(len(search_result), 2)
@@ -90,3 +90,7 @@ class IntegrationTest(LiveServerTestCase):
         self.selenium.page_source
         search_result = self.selenium.find_elements_by_class_name('puzzle')
         self.assertEquals(len(search_result), 2)
+
+        search_result_index = self.selenium.find_element_by_class_name(
+            'link-list')
+        self.assertIsNotNone(search_result_index)
