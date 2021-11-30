@@ -96,3 +96,29 @@ class IntegrationTest(LiveServerTestCase):
         self.assertIsNotNone(search_result_index)
         self.assertEquals(
             len(search_result_index.find_elements_by_tag_name("li")), 1)
+
+    def test_can_you_access_the_link_properly(self):
+        make_Puzzles(40)
+        self.selenium.get('%s%s' % (self.live_server_url, '/'))
+
+        search_field = self.selenium.find_element_by_tag_name('input')
+        search_field.send_keys('test')
+        submit_button = self.selenium.find_element_by_class_name(
+            'puzzle-search-btn')
+        submit_button.click()
+
+        search_result_index = self.selenium.find_element_by_class_name(
+            'link-list')
+        search_result_links = search_result_index.find_elements_by_tag_name(
+            "li")
+        self.assertEquals(len(search_result_links), 2)
+
+        second_result_page_link = \
+            self.selenium.find_element_by_link_text('2')
+        second_result_page_link.click()
+
+        self.assertEquals(self.selenium.current_url,
+                          '%s%s' % (
+                              self.live_server_url,
+                              '/puzzles/?search_words=test&id=2'
+                          ))
