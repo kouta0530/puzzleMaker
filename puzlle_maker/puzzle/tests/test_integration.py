@@ -112,6 +112,8 @@ class IntegrationTest(LiveServerTestCase):
         search_result_links = search_result_index.find_elements_by_tag_name(
             "li")
         self.assertEquals(len(search_result_links), 2)
+        self.assertEquals(
+            len(self.selenium.find_elements_by_class_name('puzzle')), 30)
 
         second_result_page_link = \
             self.selenium.find_element_by_link_text('2')
@@ -122,3 +124,5 @@ class IntegrationTest(LiveServerTestCase):
                               self.live_server_url,
                               '/puzzles/?search_words=test&id=2'
                           ))
+        self.assertEquals(
+            len(self.selenium.find_elements_by_class_name('puzzle')), 10)
