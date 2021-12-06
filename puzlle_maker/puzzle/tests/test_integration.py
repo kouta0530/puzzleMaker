@@ -68,3 +68,61 @@ class IntegrationTest(LiveServerTestCase):
         self.selenium.page_source
         loaded_puzzle = self.selenium.find_elements_by_class_name('puzzle')
         self.assertEquals(len(loaded_puzzle), 40)
+
+    def test_enter_in_the_search_field_and_behave_after_the_search(self):
+        make_Puzzles(11)
+        self.selenium.get('%s%s' % (self.live_server_url, '/'))
+
+        search_field = self.selenium.find_element_by_tag_name('input')
+        search_field.send_keys('test1')
+        submit_button = self.selenium.find_element_by_class_name(
+            'puzzle-search-btn')
+        submit_button.click()
+
+        self.assertEquals(self.selenium.current_url, '%s%s' % (
+            self.live_server_url, '/puzzles/?search_words=test1&id=1'))
+
+        search_result = self.selenium.find_elements_by_class_name('puzzle')
+        self.assertEquals(len(search_result), 2)
+
+        self.selenium.execute_script(
+            "window.scrollTo(0, document.body.scrollHeight)")
+        self.selenium.page_source
+        search_result = self.selenium.find_elements_by_class_name('puzzle')
+        self.assertEquals(len(search_result), 2)
+
+        search_result_index = self.selenium.find_element_by_class_name(
+            'link-list')
+        self.assertIsNotNone(search_result_index)
+        self.assertEquals(
+            len(search_result_index.find_elements_by_tag_name("li")), 1)
+
+    def test_can_you_access_the_link_properly(self):
+        make_Puzzles(40)
+        self.selenium.get('%s%s' % (self.live_server_url, '/'))
+
+        search_field = self.selenium.find_element_by_tag_name('input')
+        search_field.send_keys('test')
+        submit_button = self.selenium.find_element_by_class_name(
+            'puzzle-search-btn')
+        submit_button.click()
+
+        search_result_index = self.selenium.find_element_by_class_name(
+            'link-list')
+        search_result_links = search_result_index.find_elements_by_tag_name(
+            "li")
+        self.assertEquals(len(search_result_links), 2)
+        self.assertEquals(
+            len(self.selenium.find_elements_by_class_name('puzzle')), 30)
+
+        second_result_page_link = \
+            self.selenium.find_element_by_link_text('2')
+        second_result_page_link.click()
+
+        self.assertEquals(self.selenium.current_url,
+                          '%s%s' % (
+                              self.live_server_url,
+                              '/puzzles/?search_words=test&id=2'
+                          ))
+        self.assertEquals(
+            len(self.selenium.find_elements_by_class_name('puzzle')), 10)

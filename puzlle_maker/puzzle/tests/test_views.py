@@ -37,3 +37,38 @@ class ViewsTest(TestCase):
         response = self.client.get(url)
         additional_puzzles = response.json()
         self.assertEquals(len(additional_puzzles), 2)
+
+    def test_search_for_word_equals_title_puzzle_data(self):
+        response = self.client.get('/puzzles/?search_words=test')
+        self.assertEquals(response.status_code, 200)
+        self.assertEquals(response.context['puzzle'],
+                          list(Puzzle.objects.all().values())[:30])
+
+        response = self.client.get('/puzzles/?search_words=test&id=2')
+        self.assertEquals(response.status_code, 200)
+        self.assertEquals(response.context['puzzle'],
+                          list(Puzzle.objects.all().values())[30:60])
+
+        response = self.client.get('/puzzles/?search_words=test&id=3')
+        self.assertEquals(response.status_code, 200)
+        self.assertEquals(response.context['puzzle'],
+                          list(Puzzle.objects.all().values())[60:62])
+
+    def test_search_by_multiple_words(self):
+        Puzzle.objects.create(title="cat",
+                              size=2,
+                              created_at=timezone.now(),
+                              update_at=timezone.now(),
+                              picture_url="test.png",
+                              user_id="abdg3fh")
+        response = self.client.get("/puzzles/?search_words=test1 cat")
+        self.assertEquals(len(response.context['puzzle']), 12)
+
+    def test_search_with_blanks(self):
+        response = self.client.get('/puzzles/')
+        self.assertEquals(response.status_code, 302)
+        self.assertEquals(response.url, '/')
+
+    def test_no_work_that_matches_the_search_results(self):
+        response = self.client.get('/puzzles/?search_words=aaaaaaaa&id=1')
+        self.assertIn("パズルが投稿されていません", response.content.decode())
