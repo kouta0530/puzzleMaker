@@ -2,13 +2,14 @@ name: puzzle_maker CI
 on: push
 
 jobs:
-  name: test
-  runs-on: ubuntu-latest
-  steps:
-    - uses: actions/checkout@v2
-    - uses: actions/setup-python@v2
-    with:
-      python-version: '3'
-    - run: pip install -r requirements.txt
-    - run: python manage.py migrate
-    - run: python manage.py test
+  test:
+    name: test
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-python@v2
+      with:
+        python-version: '3'
+      - run: pip install -r requirements.txt
+      - run: python manage.py migrate
+      - run: python manage.py test
