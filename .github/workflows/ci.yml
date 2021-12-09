@@ -8,8 +8,8 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - uses: actions/setup-python@v2
-      with:
-        python-version: '3'
+        with:
+          python-version: '3'
       - run: cd puzzle_maker
       - run: pip install -r requirements.txt
       - run: python manage.py migrate
