@@ -11,5 +11,5 @@ jobs:
         with:
           python-version: '3'
       - run: cd puzlle_maker && pip install -r requirements.txt
-      - run: python manage.py migrate
-      - run: python manage.py test
+      - run: cd puzlle_maker && python manage.py migrate
+      - run: cd puzlle_maker && python manage.py test
