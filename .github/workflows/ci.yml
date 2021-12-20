@@ -1,6 +1,7 @@
 name: puzzle_maker CI
 on: push
-
+env:
+  SECRET_KEY: ${{secrets.SECRET_KEY}}
 jobs:
   test:
     runs-on: ubuntu-latest
@@ -8,12 +9,8 @@ jobs:
       - uses: actions/checkout@v2
       - name: docker-compose build
         shell: bash
-        env:
-          SECRET_KEY: ${{secrets.SECRET_KEY}}
-        run: |
-          cd puzlle_maker && docker-compose build
-          cd puzlle_maker && docker-compose run -e SECRET_KEY=${SECRET_KEY}
-
+        run: cd puzlle_maker && docker-compose up -d        
+      
       - name: django-test
         run: |
           cd puzlle_maker && docker ps
