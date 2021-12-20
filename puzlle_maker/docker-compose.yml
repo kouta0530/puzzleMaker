@@ -12,7 +12,7 @@ services:
   web:
     build: .
     environment:
-      - SECRET_KEY=${env.SECRET_KEY}
+      - SECRET_KEY=${SECRET_KEY}
     command: python3 manage.py runserver 0.0.0.0:8000
     volumes:
       - .:/puzzle_maker

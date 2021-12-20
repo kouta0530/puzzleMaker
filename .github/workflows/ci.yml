@@ -10,7 +10,9 @@ jobs:
         shell: bash
         env:
           SECRET_KEY: ${{secrets.SECRET_KEY}}
-        run: cd puzlle_maker && docker-compose up -d
+        run: |
+          cd puzlle_maker && docker-compose build
+          cd puzlle_maker && docker-compose run -e SECRET_KEY=${SECRET_KEY}
 
       - name: django-test
         run: |
