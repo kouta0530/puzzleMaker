@@ -13,4 +13,4 @@ jobs:
       
       - name: django-test
         run: |
-          cd puzlle_maker && docker ps
+          cd puzlle_maker && docker-compose exec web python manage.py migrate
