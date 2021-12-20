@@ -3,11 +3,13 @@ on: push
 
 jobs:
   test:
-    name: build
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - run: cd puzlle_maker && docker-compose up -d
+      name: docker-compose build
+      env:
+          SECRET_KEY: ${{secrets.SECRET_KEY}}
+      run: cd puzlle_maker && docker-compose up -d
 
       - name: django-test
         run: |
